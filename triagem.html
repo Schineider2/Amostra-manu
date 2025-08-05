@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Triagem</title>
+  <style>
+    body {
+      background-color: #ccf2f4;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    button {
+      background: #92cbe0;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #92cbe0;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-btn" onclick="window.location.href='inicial.html'">Voltar</button>
+
+  <div class="container" id="perguntas">
+    <h2>Triagem Rápida</h2>
+
+    <label>Você está sentindo algum dos seguintes sintomas?</label>
+    <label><input type="checkbox" name="sintoma" value="febre"> Febre</label>
+    <label><input type="checkbox" name="sintoma" value="dor"> Dor no corpo</label>
+    <label><input type="checkbox" name="sintoma" value="faltaAr"> Falta de ar</label>
+    <label><input type="checkbox" name="sintoma" value="nenhum"> Nenhum desses</label>
+
+    <label style="margin-top: 20px;">Qual o nível da sua dor?</label>
+    <label><input type="radio" name="dor" value="leve"> Leve</label>
+    <label><input type="radio" name="dor" value="moderada"> Moderada</label>
+    <label><input type="radio" name="dor" value="forte"> Forte</label>
+
+    <label style="margin-top: 20px;">Você tem alguma condição médica?</label>
+    <label><input type="radio" name="condicao" value="sim"> Sim</label>
+    <label><input type="radio" name="condicao" value="nao"> Não</label>
+
+    <button onclick="avaliarTriagem()">Enviar Triagem</button>
+  </div>
+
+  <div class="container hidden" id="resultado">
+    <h2>Resultado da Triagem</h2>
+    <p id="mensagem"></p>
+    <p id="ubs"></p>
+    <button onclick="window.location.href='inicial.html'">Voltar ao Início</button>
+  </div>
+
+  <script>
+    function avaliarTriagem() {
+      const sintomas = document.querySelectorAll('input[name="sintoma"]:checked');
+      const nivelDor = document.querySelector('input[name="dor"]:checked');
+      const condicao = document.querySelector('input[name="condicao"]:checked');
+
+      let gravidade = 0;
+
+      sintomas.forEach(s => {
+        if (s.value !== 'nenhum') gravidade++;
+      });
+
+      if (nivelDor && nivelDor.value === 'forte') gravidade += 2;
+      else if (nivelDor && nivelDor.value === 'moderada') gravidade += 1;
+
+      if (condicao && condicao.value === 'sim') gravidade += 1;
+
+      let mensagem = "";
+      let ubs = "";
+
+      // Exemplo simples de escolha de UBS com base na gravidade
+      if (gravidade >= 4) {
+        mensagem = "Recomendamos atendimento emergencial imediato.";
+        ubs = "UBS Central (Rua Principal, 123)";
+      } else if (gravidade >= 2) {
+        mensagem = "Recomendamos procurar uma UBS em até 24h.";
+        ubs = "UBS Bairro Alto (Rua das Flores, 456)";
+      } else {
+        mensagem = "Situação estável. Mantenha-se em observação.";
+        ubs = "UBS Vila Nova (Av. Brasil, 789)";
+      }
+
+      document.getElementById("mensagem").innerText = mensagem;
+      document.getElementById("ubs").innerText = "Dirija-se para: " + ubs;
+
+      document.getElementById("perguntas").classList.add("hidden");
+      document.getElementById("resultado").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>

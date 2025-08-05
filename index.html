@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+
+  <!-- Fonte Google Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #ccf2f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2, h3 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .radio-group, .checkbox-group {
+      margin: 10px 0;
+    }
+
+    .radio-group label,
+    .checkbox-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #92cbe0;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background-color: #7fbcd4;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Página 1 -->
+<div class="container" id="page1">
+  <h2>Cadastro - Página 1</h2>
+
+  <label>Nome completo:
+    <input type="text" required>
+  </label>
+
+  <label>Data de nascimento:
+    <input type="date" required>
+  </label>
+
+  <div class="radio-group">
+    <label><input type="radio" name="genero" value="feminino" required> Feminino</label>
+    <label><input type="radio" name="genero" value="masculino"> Masculino</label>
+  </div>
+
+  <label>CPF:
+    <input type="text" required>
+  </label>
+
+  <label>Telefone:
+    <input type="tel" required>
+  </label>
+
+  <label>Email:
+    <input type="email" required>
+  </label>
+
+  <h3>Para emergência</h3>
+
+  <label>Rua: <input type="text"></label>
+  <label>Número: <input type="text"></label>
+  <label>Bairro: <input type="text"></label>
+  <label>Cidade: <input type="text"></label>
+  <label>Estado: <input type="text"></label>
+  <label>CEP: <input type="text"></label>
+
+  <button onclick="nextPage('page1', 'page2')">Próximo</button>
+</div>
+
+<!-- Página 2 -->
+<div class="container hidden" id="page2">
+  <h2>Cadastro - Página 2</h2>
+
+  <div class="checkbox-group">
+    <p>Você possui alguma dessas condições?</p>
+    <label><input type="checkbox"> Cardiopatia</label>
+    <label><input type="checkbox"> Hipertensão</label>
+    <label><input type="checkbox"> Diabetes</label>
+    <label><input type="checkbox"> Asma/DPOC</label>
+    <label><input type="checkbox"> Problema neurológico</label>
+    <label><input type="checkbox"> Deficiência física, auditiva, visual ou mental</label>
+    <label><input type="checkbox"> Nenhuma</label>
+    <label><input type="checkbox"> Outras: <input type="text"></label>
+  </div>
+
+  <div class="radio-group">
+    <p>Possui alguma alergia?</p>
+    <label><input type="radio" name="alergia" value="nao"> Não</label>
+    <label><input type="radio" name="alergia" value="sim"> Sim → <input type="text"></label>
+  </div>
+
+  <div class="radio-group">
+    <p>Faz uso contínuo de medicamentos?</p>
+    <label><input type="radio" name="medicacao" value="nao"> Não</label>
+    <label><input type="radio" name="medicacao" value="sim"> Sim → <input type="text"></label>
+  </div>
+
+  <div class="radio-group">
+    <p>Já teve algum problema grave de saúde recente?</p>
+    <label><input type="radio" name="saude" value="nao"> Não</label>
+    <label><input type="radio" name="saude" value="sim"> Sim → <input type="text"></label>
+  </div>
+
+  <h3>Contatos de Emergência</h3>
+  <label>Nome completo do contato 1: <input type="text" required></label>
+  <label>Telefone do contato 1: <input type="tel" required></label>
+
+  <label>Parentesco:
+    <select>
+      <option>Pai</option>
+      <option>Mãe</option>
+      <option>Filho(a)</option>
+      <option>Irmão(ã)</option>
+      <option>Amigo(a)</option>
+      <option>Cônjuge</option>
+      <option>Outro</option>
+    </select>
+  </label>
+
+  <h3>Dados de Acesso</h3>
+  <label>Criar senha: <input type="password" minlength="6" required></label>
+  <label>Confirmar senha: <input type="password" minlength="6" required></label>
+
+  <button onclick="concluirCadastro()">Concluir Cadastro</button>
+</div>
+
+<script>
+  function nextPage(current, next) {
+    document.getElementById(current).classList.add('hidden');
+    document.getElementById(next).classList.remove('hidden');
+  }
+
+  function concluirCadastro() {
+    // Redireciona para a próxima página
+    window.location.href = 'inicial.html';
+  }
+</script>
+
+</body>
+</html>

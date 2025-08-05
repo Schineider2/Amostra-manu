@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Relógio Inteligente</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #ccf2f4;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #92cbe0;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 1000;
+    }
+    h1 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .charts {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 900px;
+    }
+    .chart-container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-btn" onclick="window.location.href='inicial.html'">Voltar</button>
+
+  <h1>Relógio Inteligente - Monitoramento</h1>
+
+  <div class="charts">
+    <div class="chart-container">
+      <h3>Pressão Arterial</h3>
+      <canvas id="pressaoChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Batimentos Cardíacos</h3>
+      <canvas id="batimentosChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const ctxPressao = document.getElementById('pressaoChart').getContext('2d');
+    const pressaoChart = new Chart(ctxPressao, {
+      type: 'line',
+      data: {
+        labels: ['8h', '10h', '12h', '14h', '16h', '18h'],
+        datasets: [{
+          label: 'Pressão Sistólica',
+          data: [120, 122, 119, 130, 128, 125],
+          borderColor: '#20c997',
+          backgroundColor: 'rgba(32, 201, 151, 0.2)',
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: 'Pressão Diastólica',
+          data: [80, 82, 79, 85, 84, 81],
+          borderColor: '#17a2b8',
+          backgroundColor: 'rgba(23, 162, 184, 0.2)',
+          fill: true,
+          tension: 0.3,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false,
+            suggestedMin: 60,
+            suggestedMax: 140
+          }
+        }
+      }
+    });
+
+    const ctxBatimentos = document.getElementById('batimentosChart').getContext('2d');
+    const batimentosChart = new Chart(ctxBatimentos, {
+      type: 'line',
+      data: {
+        labels: ['8h', '10h', '12h', '14h', '16h', '18h'],
+        datasets: [{
+          label: 'Batimentos por minuto',
+          data: [72, 75, 70, 68, 74, 73],
+          borderColor: '#ff6384',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          fill: true,
+          tension: 0.3,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false,
+            suggestedMin: 50,
+            suggestedMax: 100
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
